@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="{{@site.lang}}">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <title>{{meta_title}}</title>
+    {{ghost_head}}
+    {{!-- Outputs important meta data and settings, should always be in <head> --}}
+</head>
+<body class="{{body_class}} dark:bg-gray-900">
+<div class="max-w-6xl mx-auto px-5">
+  <header class="py-4 md:py-8 text-sm md:text-base">
+    <div class="flex text-gray-700 dark:text-gray-300">
+      <nav class="flex-grow">
+        <a href="/" class="flex items-center">
+          <img src="{{@site.icon}}" alt="{{@site.title}}" class="subtext-icon rounded-full h-10 w-10" />
+          <span class="ml-3 text-sm md:text-base">
+            {{@site.title}}
+          </span>
+        </a>
+      </nav>
+      <div class="flex flex-none justify-end">
+        {{#if @labs.members}}
+            {{#if @member}}
+                <button data-portal="account">Account</button>
+                {{#unless @member.paid}}
+                    <button class="subtext-upgrade ml-10" data-portal="account/plans">Upgrade</button>
+                {{/unless}}
+            {{else}}
+                <button class="mr-10" data-portal="signin">Login</button>
+                <button data-portal="signup">Subscribe</button>
+            {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {{{body}}}
+    {{!-- All content gets inserted here, index.hbs, post.hbs, etc --}}
+  </main>
+
+  <footer class="py-10">
+    <nav class="mx-auto max-w-md">
+      <ul class="flex justify-center text-gray-400">
+        {{navigation}}
+      </ul>
+    </nav>
+  </footer>
+
+</div>
+
+{{!-- <foot> --}}
+
+<script>
+  feather.replace()
+</script>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
+</script>
+{{#if pagination.pages}}
+<script>
+  var maxPages = parseInt('{{pagination.pages}}');
+</script>
+<script src="{{asset "built/infinitescroll.js"}}"></script>
+{{/if}}
+
+{{ghost_foot}}
+{{!-- Outputs important scripts - should always be included before closing body tag --}}
+
+</body>
+</html>

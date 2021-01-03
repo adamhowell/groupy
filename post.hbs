@@ -1,0 +1,90 @@
+{{!< default}}
+
+{{#post}}
+
+<article class="{{post_class}}">
+    <header class="px-5 md:px-0 text-center">
+        <span class="text-gray-500 text-sm md:text-base uppercase">
+          <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+          <span class="bull">&bull;</span> {{reading_time}}
+        </span>
+        <h1 class="font-bold mt-5 mb-10 text-gray-800 text-3xl md:text-5xl dark:text-gray-200">
+          {{title}}
+        </h1>
+
+        {{#if custom_excerpt}}
+          <p class="leading-7 mb-10 mt-5 mx-auto text-gray-700 text-sm md:text-lg dark:text-gray-300">
+            {{custom_excerpt}}
+          </p>
+        {{/if}}
+
+        {{#if feature_image}}
+        <img class="mx-auto"
+            srcset="{{img_url feature_image size="s"}} 300w,
+                    {{img_url feature_image size="m"}} 600w,
+                    {{img_url feature_image size="l"}} 1000w,
+                    {{img_url feature_image size="xl"}} 2000w"
+            sizes="(max-width: 1000px) 1000px, 2000px"
+            loading="lazy"
+            src="{{img_url feature_image size="xl"}}"
+            alt="{{title}}"
+        />
+        {{/if}}
+    </header>
+
+    <div class="mt-10 mx-auto px-5 md:px-0 prose prose-sm md:prose-md xl:prose-lg text-gray-700 dark:prose-dark dark:text-gray-200">
+
+      {{#if @labs.members}}
+        {{#if access}}
+          {{content}}
+
+          {{#is "post"}}
+            {{#if @labs.members}}
+              {{#unless @member}}
+                <section class="bg-gray-100 mt-10 px-10 rounded dark:bg-gray-800">
+                  <h3 class="pt-10">Enjoying these posts?</h3>
+                  <p>Subscribe for email updates, access to members only posts, and more</p>
+                  <p class="pb-10">
+                    <button data-portal="signup">Subscribe now ›</button><br />
+                    <button data-portal="signin">Already have an account? Sign in ›</button>
+                  </p>
+                </section>
+              {{/unless}}
+            {{/if}}
+          {{/is}}
+        {{else}}
+          <section class="single-cta">
+            {{#has visibility="paid"}}
+              <h3>This post is for paying subscribers only <span data-feather="lock" class="inline"></span></h3>
+              <p>
+                You don't have access to this post at the moment,
+                but if you upgrade to a paid account you'll be able to see the whole thing,
+                as well as all the other posts in the archive.
+              </p>
+            {{else}}
+              <h3>This post is for subscribers only <span data-feather="lock" class="inline"></span></h3>
+              <p>
+                You don't have access to this post at the moment,
+                but if you create a free account you'll be able to see the whole thing,
+                as well as all the other posts in the archive.
+              </p>
+            {{/has}}
+
+            <p>
+              <button data-portal="signup">Subscribe now ›</button> <br/>
+              <button data-portal="signin">Already have an account? Sign in ›</button>
+            </p>
+          </section>
+        {{/if}}
+      {{else}}
+        {{content}}
+      {{/if}}
+
+      <p>
+        Written by {{#foreach authors}}<a href="{{url}}">{{name}}</a>{{/foreach}}
+      </p>
+    </div>
+
+</article>
+
+{{/post}}

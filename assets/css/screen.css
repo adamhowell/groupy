@@ -1,0 +1,15 @@
+/* Tailwind - add this part */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* getting videos to play nice */
+figure iframe {
+  height: 400px !important;
+  width: 100% !important;
+}
+
+/* navigation current */
+.subtext-nav .current {
+  @apply border-gray-900 border-b-2 font-medium py-4 px-1 text-sm text-gray-900 whitespace-nowrap dark:border-gray-200 dark:text-gray-200;
+}
